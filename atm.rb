@@ -16,17 +16,17 @@ class ATM
   end
 end
 
-# a = ATM.new
-#   prompt = ">"
-#   puts "Please enter your name."
-#   print prompt
-#
-# while user_input = gets.chomp
-#   case user_input
-#   when a.user_data[:name].include? user_input
-#     break
-#   else
-#     puts "Please enter a valid name."
-#     print prompt
-#   end
-# end
+a = ATM.new
+  prompt = ">"
+  puts "Please enter your name."
+  print prompt
+
+while user_input = gets.chomp
+  case user_input
+  when a.user_data[:name].include? user_input
+    break
+  else
+    puts "Please enter a valid name."
+    print prompt
+  end
+end
