@@ -20,13 +20,13 @@ a = ATM.new
   prompt = ">"
   puts "Please enter your name."
   print prompt
+  user_name = gets.chomp
+  puts "Please enter your PIN."
+  user_pin = gets.chomp
+  user_hash = nil
 
-while user_input = gets.chomp
-  case user_input
-  when a.user_data[:name].include? user_input
-    break
-  else
-    puts "Please enter a valid name."
-    print prompt
+  a.users_data.each do |hash|
+    if a.user_data[:name] == user_name && a.user_data[:pin] == user_pin
+      user_hash = hash
+    end
   end
-end
