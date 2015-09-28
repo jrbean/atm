@@ -25,7 +25,7 @@ a = ATM.new
   user_pin = gets.chomp
   user_hash = nil
 
-  a.users_data.each do |hash|
+  a.user_data.each do |hash|
     if a.user_data[:name] == user_name && a.user_data[:pin] == user_pin
       user_hash = hash
     end
