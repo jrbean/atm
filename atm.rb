@@ -6,6 +6,7 @@ class ATM
 
   def initialize
     @user_data = []
+    @exit = false
     users
   end
 
@@ -39,27 +40,34 @@ class ATM
     puts "1 - Check Balance"
     puts "2 - Withdrawal"
     puts "3 - Exit"
-
     selection = gets.chomp.to_i
     if selection == 1
-      puts "#{@user_data[:balance].to_i}"
+        puts "Balance $#{@user_hash[:balance]}"
     elsif selection == 2
+      # Withdraw money, rewrite CSV
     elsif selection == 3
       puts "Please come again."
+      @exit = true
     else
       puts "#{selection} is not an available option. Please select from the options available."
     end
+  end
+
+  def exit?
+    @exit == true
   end
 end
 
 a = ATM.new
 
-  # loop
+
 
   a.access_atm
 
   if a.logged_in?
     a.atm_menu
+  elsif a.exit?
+    break
   else
     puts "Invalid name or PIN"
   end
