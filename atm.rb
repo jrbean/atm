@@ -5,7 +5,7 @@ class ATM
   attr_accessor :user_data
 
   def initialize
-    self.user_data = []
+    @user_data = []
     users
   end
 
@@ -14,19 +14,34 @@ class ATM
       user_data.push row.to_hash
       end
   end
+
+  def access_atm
+    prompt = ">"
+    puts "Please enter your name."
+    print prompt
+    user_name = gets.chomp
+    puts "Please enter your PIN."
+    user_pin = gets.chomp
+    user_hash = nil
+  end
 end
 
 a = ATM.new
-  prompt = ">"
-  puts "Please enter your name."
-  print prompt
-  user_name = gets.chomp
-  puts "Please enter your PIN."
-  user_pin = gets.chomp
-  user_hash = nil
 
+  a.access_atm
+binding.pry
   a.user_data.each do |hash|
-    if a.user_data[:name] == user_name && a.user_data[:pin] == user_pin
-      user_hash = hash
+    if hash[:name] == user_name && hash[:pin] == user_pin
+      #user_hash = hash
+      puts user_hash
     end
   end
+
+  unless user_hash = hash
+    a.access_atm
+  end
+
+  puts "Choose an option."
+  puts "1 - Check Balance"
+  puts "2 - Withdrawal"
+  puts "3 - Exit"
