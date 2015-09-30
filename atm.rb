@@ -13,7 +13,8 @@ class ATM
   def users
     CSV.foreach("bank_users.csv", headers: true, header_converters: :symbol) do |row|
       @user_data.push row.to_hash
-      end
+    #  @user_data.push row[:balance].to_i
+    end
   end
 
   def access_atm
@@ -42,9 +43,10 @@ class ATM
     puts "3 - Exit"
     selection = gets.chomp.to_i
     if selection == 1
-        puts "Balance $#{@user_hash[:balance]}"
+      puts "Balance $#{@user_hash[:balance].to_i}"
     elsif selection == 2
       # Withdraw money, rewrite CSV
+      withdraw
     elsif selection == 3
       puts "Please come again."
       @exit = true
@@ -53,12 +55,28 @@ class ATM
     end
   end
 
-  def exit?
-    @exit == true
-  end
-end
+  def withdraw
+    puts "Balance $#{@user_hash[:balance].to_i}"
+    puts "How much would you like to withdraw?"
+    amount = gets.chomp.to_i
+    if @user_hash[:balance].to_i > amount
+      @user_hash[:balance].to_i -= amount
+    else
+      puts "Insufficient funds."
+    end
+      CSV.open("bank_users.csv", "wb") do |csv|
+        user_data.each do |row|
+          csv << [row[:name], row[:pin], row[:balance]]
+        end
+      end
+    end
 
-a = ATM.new
+    def exit?
+      @exit == true
+    end
+  end
+
+  a = ATM.new
 
 
 
@@ -67,7 +85,6 @@ a = ATM.new
   if a.logged_in?
     a.atm_menu
   elsif a.exit?
-    break
   else
     puts "Invalid name or PIN"
   end
